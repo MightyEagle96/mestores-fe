@@ -10,12 +10,38 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { LoadingButton } from "@mui/lab";
 import { CartContext } from "../../context/CartContext";
+import { httpService, loggedInUser } from "../../httpService";
 
 export default function ProductCard(c) {
   const { cart, setCart } = useContext(CartContext);
   const [loading, setLoading] = useState(false);
-  const addToCart = (newItem) => {
-    setCart(() => [...cart, newItem]);
+
+  const addToCart = async (newItem) => {
+    //setCart(() => [...cart, newItem]);
+
+    if (!loggedInUser) {
+      setLoading(true);
+      const res = await httpService("mestore/createguest");
+
+      if (res && res.data) {
+        localStorage.setItem(
+          process.env.REACT_APP_PROJECT_USER,
+          JSON.stringify(res.data)
+        );
+
+        const res2 = await httpService.post("mestore/newcart", {
+          account: res.data._id,
+          product: c._id,
+        });
+
+        if (res2) {
+          setLoading(false);
+          console.log(res2.data);
+        }
+      }
+
+      setLoading(false);
+    }
   };
   return (
     <Card>
@@ -38,7 +64,7 @@ export default function ProductCard(c) {
         </Typography>
         <LoadingButton
           loadingPosition="end"
-          onClick={() => setLoading(!loading)}
+          onClick={addToCart}
           loading={loading}
           endIcon={<FontAwesomeIcon icon={faCartPlus} />}
         >
