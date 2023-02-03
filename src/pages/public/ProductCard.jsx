@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { LoadingButton } from "@mui/lab";
 import { CartContext } from "../../context/CartContext";
-import { httpService, loggedInUser } from "../../httpService";
+import { httpService } from "../../httpService";
 
 export default function ProductCard(c) {
   const { cart, setCart } = useContext(CartContext);
@@ -18,6 +18,10 @@ export default function ProductCard(c) {
 
   const addToCart = async (newItem) => {
     //setCart(() => [...cart, newItem]);
+
+    const loggedInUser = JSON.parse(
+      localStorage.getItem(process.env.REACT_APP_PROJECT_USER)
+    );
 
     if (!loggedInUser) {
       setLoading(true);
