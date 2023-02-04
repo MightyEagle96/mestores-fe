@@ -14,6 +14,7 @@ import { httpService } from "../../httpService";
 
 export default function ProductCard(c) {
   const { cart, setCart } = useContext(CartContext);
+  console.log(cart);
   const [loading, setLoading] = useState(false);
 
   const addToCart = async (newItem) => {
@@ -45,6 +46,16 @@ export default function ProductCard(c) {
       }
 
       setLoading(false);
+    } else {
+      setLoading(true);
+      const res = await httpService.patch(
+        `mestore/addtocart/${loggedInUser._id}`,
+        { product: c._id }
+      );
+      if (res && res.data) {
+        setCart(res.data.products);
+      }
+      setLoading(false);
     }
   };
   return (
@@ -66,14 +77,22 @@ export default function ProductCard(c) {
         <Typography fontWeight={600} fontSize={23}>
           ₦{c.price.toLocaleString()}
         </Typography>
-        <LoadingButton
-          loadingPosition="end"
-          onClick={addToCart}
-          loading={loading}
-          endIcon={<FontAwesomeIcon icon={faCartPlus} />}
-        >
-          <span> Add to cart</span>
-        </LoadingButton>
+        {cart.includes(c._id) ? (
+          <span className="p-3">
+            <Typography variant="">Added to cart</Typography>
+          </span>
+        ) : (
+          <span className="p-2">
+            <LoadingButton
+              loadingPosition="end"
+              onClick={addToCart}
+              loading={loading}
+              endIcon={<FontAwesomeIcon icon={faCartPlus} />}
+            >
+              <span> Add to cart</span>
+            </LoadingButton>
+          </span>
+        )}
       </CardActions>
     </Card>
   );

@@ -1,24 +1,12 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
-import React, { useState, useEffect, useContext } from "react";
+import { Typography } from "@mui/material";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { products } from "../../data/productLists";
 import { httpService } from "../../httpService";
-import { LoadingButton } from "@mui/lab";
 
-import { CartContext } from "../../context/CartContext";
 import ProductCard from "./ProductCard";
 
 export default function ViewProduct() {
-  const { cart, setCart } = useContext(CartContext);
   const { slug } = useParams();
 
   const [product, setProduct] = useState(null);
@@ -59,6 +47,14 @@ export default function ViewProduct() {
                   <ProductCard {...c} />
                 </div>
               ))}
+
+              {productsList.length === 0 ? (
+                <div className="mt-3 text-center">
+                  <Typography>
+                    No products available for this category
+                  </Typography>
+                </div>
+              ) : null}
             </div>
           </div>
         ) : null}

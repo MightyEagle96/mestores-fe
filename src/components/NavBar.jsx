@@ -5,10 +5,25 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { Badge, Typography } from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
 import { CartContext } from "../context/CartContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { httpService, loggedInUser } from "../httpService";
 
 function MyNavbar() {
-  const { cart } = useContext(CartContext);
+  const { cart, setCart } = useContext(CartContext);
+
+  const viewCart = async () => {
+    if (loggedInUser) {
+      const res = await httpService(`mestore/mycart/${loggedInUser._id}`);
+
+      if (res && res.data) {
+        setCart(res.data.products);
+      }
+    }
+  };
+
+  useEffect(() => {
+    viewCart();
+  }, []);
   return (
     <Navbar expand="lg" variant="light" bg="light">
       <Container>
