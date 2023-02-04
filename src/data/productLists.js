@@ -83,35 +83,10 @@ export const productAvatars = [
 
 export const productsDetails = [
   {
-    slug: "supermarket",
-    products: [
-      {
-        name: "Groceries",
-        description: "Perfect for you",
-        price: 2000,
-        image:
-          "https://images.pexels.com/photos/2733918/pexels-photo-2733918.jpeg?auto=compress&cs=tinysrgb&w=600",
-      },
-      {
-        name: "Fruits",
-        description: "Perfect for you",
-        price: 2000,
-        image:
-          "https://images.pexels.com/photos/2449665/pexels-photo-2449665.jpeg?auto=compress&cs=tinysrgb&w=600",
-      },
-      {
-        name: "Cereals",
-        description: "Perfect for you",
-        price: 2000,
-        image:
-          "https://images.pexels.com/photos/1192053/pexels-photo-1192053.jpeg?auto=compress&cs=tinysrgb&w=600",
-      },
-    ],
-  },
-  {
     slug: "fashion",
     products: [
       {
+        slug: "fashion",
         name: "Suits",
         description: "Perfect for you",
         price: 37500,
@@ -119,6 +94,7 @@ export const productsDetails = [
           "https://images.pexels.com/photos/325876/pexels-photo-325876.jpeg",
       },
       {
+        slug: "fashion",
         name: "Italian Suit",
         description: "Perfect for you",
         price: 55000,
@@ -126,6 +102,7 @@ export const productsDetails = [
           "https://images.pexels.com/photos/1096849/pexels-photo-1096849.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       },
       {
+        slug: "fashion",
         name: "Ties & Shoes",
         description: "Perfect for you",
         price: 34500,
@@ -133,6 +110,7 @@ export const productsDetails = [
           "https://images.pexels.com/photos/63196/pexels-photo-63196.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       },
       {
+        slug: "fashion",
         name: "Wrist Watches",
         description: "Perfect for you",
         price: 14000,
@@ -140,6 +118,7 @@ export const productsDetails = [
           "https://images.pexels.com/photos/280250/pexels-photo-280250.jpeg?auto=compress&cs=tinysrgb&w=600",
       },
       {
+        slug: "fashion",
         name: "Wrist Watches",
         description: "Perfect for you",
         price: 15000,

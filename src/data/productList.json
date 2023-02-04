@@ -1,20 +1,37 @@
 [
   {
-    "name": "Groceries",
+    "category": "fashion",
+    "name": "Suits",
     "description": "Perfect for you",
-    "price": 2000,
-    "image": "https://images.pexels.com/photos/2733918/pexels-photo-2733918.jpeg?auto=compress&cs=tinysrgb&w=600"
+    "price": 37500,
+    "image": "https://images.pexels.com/photos/325876/pexels-photo-325876.jpeg"
   },
   {
-    "name": "Fruits",
+    "category": "fashion",
+    "name": "Italian Suit",
     "description": "Perfect for you",
-    "price": 2000,
-    "image": "https://images.pexels.com/photos/2449665/pexels-photo-2449665.jpeg?auto=compress&cs=tinysrgb&w=600"
+    "price": 55000,
+    "image": "https://images.pexels.com/photos/1096849/pexels-photo-1096849.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
   },
   {
-    "name": "Cereals",
+    "category": "fashion",
+    "name": "Ties & Shoes",
     "description": "Perfect for you",
-    "price": 2000,
-    "image": "https://images.pexels.com/photos/1192053/pexels-photo-1192053.jpeg?auto=compress&cs=tinysrgb&w=600"
+    "price": 34500,
+    "image": "https://images.pexels.com/photos/63196/pexels-photo-63196.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  },
+  {
+    "category": "fashion",
+    "name": "Wrist Watch",
+    "description": "Perfect for you",
+    "price": 14000,
+    "image": "https://images.pexels.com/photos/280250/pexels-photo-280250.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    "category": "fashion",
+    "name": "Wrist Watch",
+    "description": "Perfect for you",
+    "price": 15000,
+    "image": "https://images.pexels.com/photos/1120275/pexels-photo-1120275.jpeg?auto=compress&cs=tinysrgb&w=600"
   }
 ]

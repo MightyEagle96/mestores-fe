@@ -50,7 +50,7 @@ function MyNavbar() {
             </NavDropdown>
           </Nav>
           <Nav className="ms-auto">
-            <Nav.Link>
+            <Nav.Link href="/mycart" disabled={loggedInUser ? false : true}>
               <Badge badgeContent={cart.length} color="error">
                 <ShoppingCart />
               </Badge>
