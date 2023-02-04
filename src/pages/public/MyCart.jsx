@@ -31,12 +31,14 @@ export default function MyCart() {
 
         <div className="mt-2">
           <div className="row">
-            <div className="col-lg-6">
+            <div className="col-lg-6  bg-light p-3">
               {products.map((c) => (
                 <CheckOutCard {...c} />
               ))}
             </div>
-            <div className="col-lg-6"></div>
+            <div className="col-lg-6">
+              <Typography>CheckOut</Typography>
+            </div>
           </div>
         </div>
       </div>

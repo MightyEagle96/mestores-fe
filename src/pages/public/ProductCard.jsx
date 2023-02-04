@@ -6,6 +6,8 @@ import {
   Typography,
   CardActions,
   Button,
+  Stack,
+  IconButton,
 } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
@@ -80,6 +82,12 @@ export default function ProductCard(c) {
       setLoading(false);
     }
   };
+
+  const hasbeenAdded = (id) => {
+    const exist = cart.find((c) => c.product === id);
+
+    return exist ? true : false;
+  };
   return (
     <>
       <Card>
@@ -96,27 +104,29 @@ export default function ProductCard(c) {
           </Typography>
           <Typography variant="subtitle2">{c.description}</Typography>
         </CardContent>
-        <CardActions>
-          <Typography fontWeight={600} fontSize={23}>
-            ₦{c.price.toLocaleString()}
-          </Typography>
-          {cart.includes(c._id) ? (
-            <span className="p-3">
-              <Typography variant="">Added to cart</Typography>
-            </span>
-          ) : (
-            <span className="p-2">
-              <LoadingButton
-                loadingPosition="end"
-                onClick={addToCart}
-                loading={loading}
-                endIcon={<FontAwesomeIcon icon={faCartPlus} />}
-              >
-                <span> Add to cart</span>
-              </LoadingButton>
-            </span>
-          )}
-        </CardActions>
+        <div className="p-3">
+          <Stack direction={"row"} className="d-flex align-items-center">
+            <Typography fontWeight={600} fontSize={23}>
+              ₦{c.price.toLocaleString()}
+            </Typography>
+            {hasbeenAdded(c._id) ? (
+              <span className="p-3">
+                <Typography variant="">Added to cart</Typography>
+              </span>
+            ) : (
+              <span className="p-2">
+                <LoadingButton
+                  loadingPosition="end"
+                  onClick={addToCart}
+                  loading={loading}
+                  endIcon={<FontAwesomeIcon icon={faCartPlus} />}
+                >
+                  <span> Add to cart</span>
+                </LoadingButton>
+              </span>
+            )}
+          </Stack>
+        </div>
       </Card>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
