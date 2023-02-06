@@ -52,6 +52,8 @@ export default function MyCart() {
         process.env.REACT_APP_PROJECT_USER,
         JSON.stringify(res.data)
       );
+
+      window.location.reload();
     }
   };
   return (
