@@ -5,6 +5,8 @@ import React, { useState, useEffect, useContext } from "react";
 import { httpService, loggedInUser } from "../../httpService";
 import CheckOutCard from "./CheckOutCard";
 import { CartContext } from "../../context/CartContext";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import jwt_decode from "jwt-decode";
 
 export default function MyCart() {
   const [products, setProducts] = useState([]);
@@ -37,37 +39,79 @@ export default function MyCart() {
     getCart();
     getCartPrice();
   }, []);
-  return (
-    <div className="mt-5">
-      <div className="container">
-        <Typography variant="h3" fontWeight={900} color="grey">
-          My Cart
-          <span>
-            <FontAwesomeIcon icon={faCartShopping} />
-          </span>
-        </Typography>
-        <hr />
 
-        <div className="mt-2">
-          <div className="row">
-            <div className="col-lg-6">
-              {products.map((c) => (
-                <CheckOutCard {...c} />
-              ))}
-            </div>
-            <div className="col-lg-6 d-flex align-items-center bg-light p-5">
-              <div>
-                <Typography gutterBottom variant="body1" color="#303f9f">
-                  Amount to pay
-                </Typography>
-                <Typography variant="h3" fontWeight={600} color="#1a237e">
-                  ₦{cartPrice.toLocaleString()}.00
-                </Typography>
+  const handleGoogleLogin = async (data) => {
+    const res = await httpService.patch(
+      `mestore/googleAccount/${loggedInUser._id}`,
+      data
+    );
+
+    if (res) {
+      console.log(res.data);
+      localStorage.setItem(
+        process.env.REACT_APP_PROJECT_USER,
+        JSON.stringify(res.data)
+      );
+    }
+  };
+  return (
+    <GoogleOAuthProvider clientId="1038881009037-lmfer8u0ogoqlh4floj5gt5iv88deh6e.apps.googleusercontent.com">
+      <div className="mt-5">
+        <div className="container">
+          <Typography variant="h3" fontWeight={900} color="grey">
+            My Cart
+            <span>
+              <FontAwesomeIcon icon={faCartShopping} />
+            </span>
+          </Typography>
+          <hr />
+
+          <div className="mt-2">
+            <div className="row">
+              <div className="col-lg-6">
+                {products.map((c) => (
+                  <CheckOutCard {...c} />
+                ))}
+              </div>
+              <div className="col-lg-6 d-flex align-items-center bg-light p-5">
+                <div>
+                  <Typography gutterBottom variant="body1" color="#303f9f">
+                    Amount to pay
+                  </Typography>
+                  <Typography variant="h3" fontWeight={600} color="#1a237e">
+                    ₦{cartPrice.toLocaleString()}.00
+                  </Typography>
+
+                  <div className="mt-2">
+                    {/* <Button>Login to continue to checkout</Button> */}
+                    {loggedInUser && loggedInUser.isGuest ? (
+                      <GoogleLogin
+                        onSuccess={(credentialResponse) => {
+                          const data = jwt_decode(
+                            credentialResponse.credential
+                          );
+
+                          const update = {
+                            email: data.email,
+                            firstName: data.given_name,
+                            lastName: data.family_name,
+                            authMethod: "Google",
+                            picture: data.picture,
+                          };
+                          handleGoogleLogin(update);
+                        }}
+                        onError={() => {
+                          console.log("Login Failed");
+                        }}
+                      />
+                    ) : null}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </GoogleOAuthProvider>
   );
 }
