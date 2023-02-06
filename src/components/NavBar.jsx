@@ -4,12 +4,13 @@ import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Badge, Typography } from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
-import { CartContext } from "../context/CartContext";
+import { CartContext, UserContext } from "../context/CartContext";
 import { useContext, useEffect } from "react";
 import { httpService, loggedInUser } from "../httpService";
 
 function MyNavbar() {
   const { cart, setCart } = useContext(CartContext);
+  const { user, setUser } = useContext(UserContext);
 
   const viewCart = async () => {
     if (loggedInUser) {
@@ -23,6 +24,7 @@ function MyNavbar() {
 
   useEffect(() => {
     viewCart();
+    setUser(loggedInUser);
   }, []);
   return (
     <Navbar expand="lg" variant="light" bg="light">
@@ -50,7 +52,7 @@ function MyNavbar() {
             </NavDropdown>
           </Nav>
           <Nav className="ms-auto">
-            <Nav.Link href="/mycart" disabled={loggedInUser ? false : true}>
+            <Nav.Link href="/mycart" disabled={user ? false : true}>
               <Badge badgeContent={cart.length} color="error">
                 <ShoppingCart />
               </Badge>

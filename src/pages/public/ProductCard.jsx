@@ -3,7 +3,7 @@ import { Card, CardMedia, CardContent, Typography, Stack } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { LoadingButton } from "@mui/lab";
-import { CartContext } from "../../context/CartContext";
+import { CartContext, UserContext } from "../../context/CartContext";
 import { httpService } from "../../httpService";
 import Snackbar from "@mui/material/Snackbar";
 
@@ -12,6 +12,7 @@ import { Badge } from "react-bootstrap";
 
 export default function ProductCard(c) {
   const { cart, setCart } = useContext(CartContext);
+  const { user, setUser } = useContext(UserContext);
 
   const [loading, setLoading] = useState(false);
 
@@ -43,6 +44,7 @@ export default function ProductCard(c) {
       const res = await httpService("mestore/createguest");
 
       if (res && res.data) {
+        setUser(res.data);
         localStorage.setItem(
           process.env.REACT_APP_PROJECT_USER,
           JSON.stringify(res.data)
@@ -55,7 +57,7 @@ export default function ProductCard(c) {
 
         if (res2) {
           setLoading(false);
-          setCart(res.data.products);
+          setCart(res2.data.products);
           handleClick();
         }
       }

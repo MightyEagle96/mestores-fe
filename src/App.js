@@ -7,16 +7,19 @@ import "@fontsource/roboto/900.css";
 import "./App.css";
 import MyNavbar from "./components/NavBar";
 import MainRoutes from "./routes";
-import { CartContext } from "./context/CartContext";
+import { CartContext, UserContext } from "./context/CartContext";
 import React, { useState } from "react";
 
 function App() {
   const [cart, setCart] = useState([]);
+  const [user, setUser] = useState(null);
   return (
-    <CartContext.Provider value={{ cart, setCart }}>
-      <MyNavbar />
-      <MainRoutes />
-    </CartContext.Provider>
+    <UserContext.Provider value={{ user, setUser }}>
+      <CartContext.Provider value={{ cart, setCart }}>
+        <MyNavbar />
+        <MainRoutes />
+      </CartContext.Provider>
+    </UserContext.Provider>
   );
 }
 
