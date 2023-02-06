@@ -1,14 +1,5 @@
 import React, { useContext, useState, forwardRef } from "react";
-import {
-  Card,
-  CardMedia,
-  CardContent,
-  Typography,
-  CardActions,
-  Button,
-  Stack,
-  IconButton,
-} from "@mui/material";
+import { Card, CardMedia, CardContent, Typography, Stack } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { LoadingButton } from "@mui/lab";
@@ -17,6 +8,7 @@ import { httpService } from "../../httpService";
 import Snackbar from "@mui/material/Snackbar";
 
 import MuiAlert from "@mui/material/Alert";
+import { Badge } from "react-bootstrap";
 
 export default function ProductCard(c) {
   const { cart, setCart } = useContext(CartContext);
@@ -111,7 +103,8 @@ export default function ProductCard(c) {
             </Typography>
             {hasbeenAdded(c._id) ? (
               <span className="p-3">
-                <Typography variant="">Added to cart</Typography>
+                {" "}
+                <Badge bg="warning">Added to cart</Badge>
               </span>
             ) : (
               <span className="p-2">
