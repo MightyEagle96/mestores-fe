@@ -9,6 +9,7 @@ import MyNavbar from "./components/NavBar";
 import MainRoutes from "./routes";
 import { CartContext, UserContext } from "./context/CartContext";
 import React, { useState } from "react";
+import Footer from "./components/Footer";
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -18,6 +19,7 @@ function App() {
       <CartContext.Provider value={{ cart, setCart }}>
         <MyNavbar />
         <MainRoutes />
+        <Footer />
       </CartContext.Provider>
     </UserContext.Provider>
   );

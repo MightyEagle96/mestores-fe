@@ -2,3 +2,9 @@
   background-color: rgba(41, 6, 37, 0.91);
   margin-top: -30px;
 }
+
+.footer {
+  min-height: 30vh;
+  background-color: #020a63;
+  margin-top: 100px;
+}
