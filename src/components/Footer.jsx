@@ -1,4 +1,4 @@
-import { Link, Stack, TextField } from "@mui/material";
+import { Button, Link, Stack, TextField, Typography } from "@mui/material";
 import React from "react";
 
 export default function Footer() {
@@ -29,7 +29,15 @@ export default function Footer() {
               </Link>
             </Stack>
           </div>
-          <div className="col-lg-4 ">{/* <TextField fullWidth  /> */}</div>
+          <div className="col-lg-4 p-4 bg-white rounded d-flex align-items-center  ">
+            <div className="w-100">
+              <Typography fontWeight={700} color="#0d47a1" gutterBottom>
+                Subscribe to news letter
+              </Typography>
+              <TextField fullWidth label="Email" />
+              <Button>subscribe</Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

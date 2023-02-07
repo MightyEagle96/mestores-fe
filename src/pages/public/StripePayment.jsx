@@ -12,7 +12,7 @@ import { LoadingButton } from "@mui/lab";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCreditCard } from "@fortawesome/free-solid-svg-icons";
 
-export default function StripePayment({ amount }) {
+export default function StripePayment({ amount, account, description }) {
   const [pi, setPi] = useState(null);
   const [loading, setLoading] = useState(false);
   const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
@@ -21,6 +21,7 @@ export default function StripePayment({ amount }) {
     setLoading(!loading);
     const { data } = await httpService.post("mestore/createpayment", {
       amount,
+      account,
     });
     setPi(data);
     setLoading(!loading);

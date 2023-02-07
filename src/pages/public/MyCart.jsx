@@ -13,6 +13,8 @@ import StripePayment from "./StripePayment";
 export default function MyCart() {
   const [products, setProducts] = useState([]);
   const [cartPrice, setCartPrice] = useState(0);
+  const [cartId, setCartId] = useState("");
+  const [description, setDescription] = useState("");
 
   const { setCart } = useContext(CartContext);
 
@@ -30,6 +32,8 @@ export default function MyCart() {
     const res = await httpService(`mestore/detailedcart/${loggedInUser._id}`);
 
     if (res && res.data) {
+      setCartId(res.data._id);
+      getCartDescription(res.data._id);
       setCart(res.data.products);
       res.data.products.forEach((c) => {
         c.getCart = getCart;
@@ -37,6 +41,12 @@ export default function MyCart() {
       });
       setProducts(res.data.products);
     }
+  };
+
+  const getCartDescription = async (cartId) => {
+    const { data } = await httpService(`mestore/cartdescription/${cartId}`);
+
+    setDescription(data);
   };
 
   useEffect(() => {
@@ -111,7 +121,11 @@ export default function MyCart() {
                     ) : null}
 
                     {user && !user.isGuest ? (
-                      <StripePayment amount={cartPrice} />
+                      <StripePayment
+                        amount={cartPrice}
+                        account={user._id}
+                        description={description}
+                      />
                     ) : null}
                   </div>
                 </div>
