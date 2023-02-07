@@ -12,7 +12,7 @@ import { Badge } from "react-bootstrap";
 
 export default function ProductCard(c) {
   const { cart, setCart } = useContext(CartContext);
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   const [loading, setLoading] = useState(false);
 
