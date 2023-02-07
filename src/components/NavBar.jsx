@@ -48,10 +48,13 @@ function MyNavbar() {
             </Nav.Link>
             {user ? (
               <NavDropdown title={user.firstName} id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Logout</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.1">
-                  <Avatar src={user.picture} />
+                  My Orders
                 </NavDropdown.Item>
+                {/* <NavDropdown.Item href="#action/3.1">
+                  <Avatar src={user.picture} />
+                </NavDropdown.Item> */}
+                <NavDropdown.Item href="#action/3.1">Logout</NavDropdown.Item>
               </NavDropdown>
             ) : null}
           </Nav>

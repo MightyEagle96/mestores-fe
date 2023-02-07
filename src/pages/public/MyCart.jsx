@@ -4,15 +4,19 @@ import { Typography } from "@mui/material";
 import React, { useState, useEffect, useContext } from "react";
 import { httpService, loggedInUser } from "../../httpService";
 import CheckOutCard from "./CheckOutCard";
-import { CartContext } from "../../context/CartContext";
+import { CartContext, UserContext } from "../../context/CartContext";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
+
+import StripePayment from "./StripePayment";
 
 export default function MyCart() {
   const [products, setProducts] = useState([]);
   const [cartPrice, setCartPrice] = useState(0);
 
   const { setCart } = useContext(CartContext);
+
+  const { user } = useContext(UserContext);
 
   const getCartPrice = async () => {
     const { data } = await httpService(`mestore/cartprice/${loggedInUser._id}`);
@@ -55,6 +59,7 @@ export default function MyCart() {
       window.location.reload();
     }
   };
+
   return (
     <GoogleOAuthProvider clientId="1038881009037-lmfer8u0ogoqlh4floj5gt5iv88deh6e.apps.googleusercontent.com">
       <div className="mt-5">
@@ -70,11 +75,11 @@ export default function MyCart() {
           <div className="mt-2">
             <div className="row">
               <div className="col-lg-6">
-                {products.map((c) => (
-                  <CheckOutCard {...c} />
+                {products.map((c, i) => (
+                  <CheckOutCard {...c} key={i} />
                 ))}
               </div>
-              <div className="col-lg-6 d-flex align-items-center bg-light p-5">
+              <div className="col-lg-6 bg-light p-5">
                 <div>
                   <Typography gutterBottom variant="body1" color="#303f9f">
                     Amount to pay
@@ -101,10 +106,12 @@ export default function MyCart() {
                           };
                           handleGoogleLogin(update);
                         }}
-                        onError={() => {
-                          console.log("Login Failed");
-                        }}
+                        onError={() => {}}
                       />
+                    ) : null}
+
+                    {user && !user.isGuest ? (
+                      <StripePayment amount={cartPrice} />
                     ) : null}
                   </div>
                 </div>

@@ -4,11 +4,13 @@ import HomePage from "../pages/public/HomePage";
 import NotFound from "../pages/NotFound";
 import ViewProduct from "../pages/public/ViewProduct";
 import MyCart from "../pages/public/MyCart";
+import ConfirmOrder from "../pages/public/ConfirmOrder";
 
 const routes = [
   { path: "/", component: HomePage },
   { path: "/products/:slug", component: ViewProduct },
   { path: "/mycart", component: MyCart },
+  { path: "/confirm", component: ConfirmOrder },
   { path: "*", component: NotFound },
 ];
 
