@@ -40,17 +40,16 @@ export default function MyCart() {
     getCartPrice();
   }, []);
 
-  const handleGoogleLogin = async (data) => {
-    const res = await httpService.patch(
+  const handleGoogleLogin = async (obj) => {
+    const { data } = await httpService.patch(
       `mestore/googleAccount/${loggedInUser._id}`,
-      data
+      obj
     );
 
-    if (res) {
-      console.log(res.data);
+    if (data) {
       localStorage.setItem(
         process.env.REACT_APP_PROJECT_USER,
-        JSON.stringify(res.data)
+        JSON.stringify(data)
       );
 
       window.location.reload();
@@ -60,7 +59,7 @@ export default function MyCart() {
     <GoogleOAuthProvider clientId="1038881009037-lmfer8u0ogoqlh4floj5gt5iv88deh6e.apps.googleusercontent.com">
       <div className="mt-5">
         <div className="container">
-          <Typography variant="h3" fontWeight={900} color="grey">
+          <Typography variant="h6" fontWeight={900} color="grey">
             My Cart
             <span>
               <FontAwesomeIcon icon={faCartShopping} />
