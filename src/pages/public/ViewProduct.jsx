@@ -13,17 +13,21 @@ export default function ViewProduct() {
   const [product, setProduct] = useState(null);
 
   const [productsList, setProductsList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getData = () => {
     setProduct(products.find((c) => c.slug === slug));
   };
 
   const getDataFromServer = async () => {
-    const res = await httpService.get(`mestore/viewProducts?category=${slug}`);
+    setLoading(true);
+    const { data } = await httpService.get(
+      `mestore/viewProducts?category=${slug}`
+    );
 
-    if (res) {
-      setProductsList(res.data);
-    }
+    setProductsList(data);
+
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -48,17 +52,11 @@ export default function ViewProduct() {
                   <ProductCard {...c} />
                 </div>
               ))}
-
-              {productsList.length === 0 ? (
-                <div className="mt-3 text-center">
-                  <Typography>
-                    No products available for this category
-                  </Typography>
-                </div>
-              ) : null}
             </div>
           </div>
-        ) : (
+        ) : null}
+
+        {loading ? (
           <div className="row">
             <div className="col-lg-4">
               {/* For variant="text", adjust the height via font-size */}
@@ -89,6 +87,14 @@ export default function ViewProduct() {
               <Skeleton variant="rounded" height={60} />
             </div>
           </div>
+        ) : (
+          <>
+            {productsList.length === 0 ? (
+              <div className="mt-3 text-center">
+                <Typography>No products available for this category</Typography>
+              </div>
+            ) : null}
+          </>
         )}
       </div>
     </div>
