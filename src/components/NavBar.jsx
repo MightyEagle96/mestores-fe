@@ -30,7 +30,7 @@ function MyNavbar() {
     <Navbar expand="lg" variant="light" bg="light">
       <Container>
         <Navbar.Brand href="/">
-          <Typography variant="h6" fontWeight={"100"}>
+          <Typography variant="body1" fontWeight={"700"}>
             ME-Stores
           </Typography>
         </Navbar.Brand>
