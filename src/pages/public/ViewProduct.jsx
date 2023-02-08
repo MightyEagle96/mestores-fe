@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { products } from "../../data/productLists";
 import { httpService } from "../../httpService";
+import { Skeleton } from "@mui/material";
 
 import ProductCard from "./ProductCard";
 
@@ -57,7 +58,38 @@ export default function ViewProduct() {
               ) : null}
             </div>
           </div>
-        ) : null}
+        ) : (
+          <div className="row">
+            <div className="col-lg-4">
+              {/* For variant="text", adjust the height via font-size */}
+              <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+
+              {/* For other variants, adjust the size with `width` and `height` */}
+              <Skeleton variant="rectangular" height={60} />
+
+              <Skeleton variant="circular" width={40} height={40} />
+              <Skeleton variant="rounded" height={60} />
+            </div>
+            <div className="col-lg-4">
+              <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+
+              {/* For other variants, adjust the size with `width` and `height` */}
+              <Skeleton variant="rectangular" height={60} />
+
+              <Skeleton variant="circular" width={40} height={40} />
+              <Skeleton variant="rounded" height={60} />
+            </div>
+            <div className="col-lg-4">
+              <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+
+              {/* For other variants, adjust the size with `width` and `height` */}
+              <Skeleton variant="rectangular" height={60} />
+
+              <Skeleton variant="circular" width={40} height={40} />
+              <Skeleton variant="rounded" height={60} />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

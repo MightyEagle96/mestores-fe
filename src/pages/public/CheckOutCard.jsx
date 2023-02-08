@@ -11,6 +11,7 @@ import MuiAlert from "@mui/material/Alert";
 export default function CheckOutCard(c) {
   const [open, setOpen] = useState(false);
   const [snackBar, setSetSnackBar] = useState({});
+  const [loading, setLoading] = useState(false);
   const increaseItem = async () => {
     const res = await httpService.patch(
       `mestore/increasequantity/${loggedInUser._id}`,
@@ -40,6 +41,7 @@ export default function CheckOutCard(c) {
   };
 
   const removeItem = async () => {
+    setLoading(true);
     const res = await httpService.patch(
       `/mestore/removeitem/${loggedInUser._id}`,
       { product: c._id }
@@ -51,6 +53,7 @@ export default function CheckOutCard(c) {
       c.getCart();
       c.getCartPrice();
     }
+    setLoading(false);
   };
   const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -104,6 +107,8 @@ export default function CheckOutCard(c) {
         </div>
         <div>
           <LoadingButton
+            loadingPosition="end"
+            loading={loading}
             endIcon={<FontAwesomeIcon icon={faTrash} />}
             onClick={removeItem}
           >
