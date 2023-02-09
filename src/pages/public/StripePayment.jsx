@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from "react";
+import React, { useState, forwardRef, useContext } from "react";
 import {
   Elements,
   PaymentElement,
@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCreditCard } from "@fortawesome/free-solid-svg-icons";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import { UserContext } from "../../context/CartContext";
 
 export default function StripePayment({
   amount,
@@ -45,7 +46,7 @@ export default function StripePayment({
     <div>
       {pi ? (
         <Elements stripe={stripePromise} options={options}>
-          <CheckoutForm cartId={cartId} />
+          <CheckoutForm />
         </Elements>
       ) : (
         // <Button onClick={getPi}>Pay with card</Button>
@@ -69,6 +70,7 @@ const CheckoutForm = ({ cartId }) => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const { user } = useContext(UserContext);
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(!loading);
@@ -81,7 +83,7 @@ const CheckoutForm = ({ cartId }) => {
     const result = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${process.env.REACT_APP_BASE_URL}paymentsuccessful/${cartId}`,
+        return_url: `${process.env.REACT_APP_BASE_URL}paymentsuccessful/${user._id}`,
       },
     });
 
