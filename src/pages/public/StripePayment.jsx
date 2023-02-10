@@ -83,7 +83,7 @@ const CheckoutForm = ({ cartId }) => {
     const result = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${process.env.REACT_APP_BASE_URL}paymentsuccessful/${user._id}`,
+        return_url: `${process.env.REACT_APP_BASE_URL}paymentsuccessful`,
       },
     });
 

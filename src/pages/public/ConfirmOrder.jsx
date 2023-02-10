@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
-import { httpService } from "../../httpService";
-import { UserContext } from "../../context/CartContext";
+import React, { useState, useEffect } from "react";
+
+import { httpService, loggedInUser } from "../../httpService";
+
 import MySpinner from "../../components/Aesthetics";
 import { Avatar, Typography } from "@mui/material";
 import { Badge } from "react-bootstrap";
@@ -9,17 +9,18 @@ import { Badge } from "react-bootstrap";
 export default function ConfirmOrder() {
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
-  const { user } = useContext(UserContext);
-  //console.log(user);
 
-  const { cartId } = useParams();
   const getCart = async () => {
     setLoading(!loading);
-    const { data } = await httpService(`mestore/updatecart/${cartId}`);
+    const res = await httpService(`mestore/updatecart/${loggedInUser._id}`);
 
-    setResponse(data);
+    if (res) {
+      setLoading(!loading);
+      if (res.status === 303) return window.location.assign("/myorders");
 
-    setLoading(!loading);
+      setResponse(res.data);
+      setLoading(!loading);
+    }
   };
 
   useEffect(() => {
@@ -41,8 +42,8 @@ export default function ConfirmOrder() {
               </Typography>
 
               <Typography>
-                Dear, <strong>{user.firstName}</strong> your payment for the
-                items below was successful
+                Dear, <strong>{loggedInUser.firstName}</strong> your payment for
+                the items below was successful
               </Typography>
 
               <div className="mt-2">

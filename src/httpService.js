@@ -30,8 +30,9 @@ httpService.interceptors.response.use(
           title: "Server Error",
           text: error.response.data,
         });
-      }
-      return { type: "error", message: error.response.data };
+      } else if (error.response.status === 400) {
+        return { type: "error", message: error.response.data };
+      } else return error.response;
     } else {
       return Swal.fire({
         icon: "error",
