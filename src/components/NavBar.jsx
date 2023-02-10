@@ -7,6 +7,7 @@ import { ShoppingCart } from "@mui/icons-material";
 import { CartContext, UserContext } from "../context/CartContext";
 import { useContext, useEffect } from "react";
 import { httpService, loggedInUser } from "../httpService";
+import { googleLogout } from "@react-oauth/google";
 
 function MyNavbar() {
   const { cart, setCart } = useContext(CartContext);
@@ -54,9 +55,19 @@ function MyNavbar() {
                 {/* <NavDropdown.Item href="#action/3.1">
                   <Avatar src={user.picture} />
                 </NavDropdown.Item> */}
-                <NavDropdown.Item href="#action/3.1">Logout</NavDropdown.Item>
+                <NavDropdown.Item
+                  onClick={() => {
+                    googleLogout();
+                    localStorage.removeItem(process.env.REACT_APP_PROJECT_USER);
+                    window.location.reload();
+                  }}
+                >
+                  Logout
+                </NavDropdown.Item>
               </NavDropdown>
-            ) : null}
+            ) : (
+              <Nav.Link href="/login">Login</Nav.Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -71,70 +71,66 @@ export default function MyCart() {
   };
 
   return (
-    <GoogleOAuthProvider clientId="1038881009037-lmfer8u0ogoqlh4floj5gt5iv88deh6e.apps.googleusercontent.com">
-      <div className="mt-5">
-        <div className="container">
-          <Typography variant="h6" fontWeight={900} color="grey">
-            My Cart
-            <span>
-              <FontAwesomeIcon icon={faCartShopping} />
-            </span>
-          </Typography>
-          <hr />
+    <div className="mt-5">
+      <div className="container">
+        <Typography variant="h6" fontWeight={900} color="grey">
+          My Cart
+          <span>
+            <FontAwesomeIcon icon={faCartShopping} />
+          </span>
+        </Typography>
+        <hr />
 
-          <div className="mt-2">
-            <div className="row">
-              <div className="col-lg-6">
-                {products.map((c, i) => (
-                  <CheckOutCard {...c} key={i} />
-                ))}
-              </div>
-              <div className="col-lg-6 bg-light p-5">
-                <div>
-                  <Typography gutterBottom variant="body1" color="#303f9f">
-                    Amount to pay
-                  </Typography>
-                  <Typography variant="h3" fontWeight={600} color="#1a237e">
-                    ₦{cartPrice.toLocaleString()}.00
-                  </Typography>
+        <div className="mt-2">
+          <div className="row">
+            <div className="col-lg-6">
+              {products.map((c, i) => (
+                <CheckOutCard {...c} key={i} />
+              ))}
+            </div>
+            <div className="col-lg-6 bg-light p-5">
+              <div>
+                <Typography gutterBottom variant="body1" color="#303f9f">
+                  Amount to pay
+                </Typography>
+                <Typography variant="h3" fontWeight={600} color="#1a237e">
+                  ₦{cartPrice.toLocaleString()}.00
+                </Typography>
 
-                  <div className="mt-2">
-                    {/* <Button>Login to continue to checkout</Button> */}
-                    {loggedInUser && loggedInUser.isGuest ? (
-                      <GoogleLogin
-                        onSuccess={(credentialResponse) => {
-                          const data = jwt_decode(
-                            credentialResponse.credential
-                          );
+                <div className="mt-2">
+                  {/* <Button>Login to continue to checkout</Button> */}
+                  {loggedInUser && loggedInUser.isGuest ? (
+                    <GoogleLogin
+                      onSuccess={(credentialResponse) => {
+                        const data = jwt_decode(credentialResponse.credential);
 
-                          const update = {
-                            email: data.email,
-                            firstName: data.given_name,
-                            lastName: data.family_name,
-                            authMethod: "Google",
-                            picture: data.picture,
-                          };
-                          handleGoogleLogin(update);
-                        }}
-                        onError={() => {}}
-                      />
-                    ) : null}
+                        const update = {
+                          email: data.email,
+                          firstName: data.given_name,
+                          lastName: data.family_name,
+                          authMethod: "Google",
+                          picture: data.picture,
+                        };
+                        handleGoogleLogin(update);
+                      }}
+                      onError={() => {}}
+                    />
+                  ) : null}
 
-                    {user && !user.isGuest ? (
-                      <StripePayment
-                        amount={cartPrice}
-                        account={user._id}
-                        description={description}
-                        cartId={cartId}
-                      />
-                    ) : null}
-                  </div>
+                  {user && !user.isGuest ? (
+                    <StripePayment
+                      amount={cartPrice}
+                      account={user._id}
+                      description={description}
+                      cartId={cartId}
+                    />
+                  ) : null}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </GoogleOAuthProvider>
+    </div>
   );
 }

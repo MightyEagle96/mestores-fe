@@ -5,12 +5,14 @@ import NotFound from "../pages/NotFound";
 import ViewProduct from "../pages/public/ViewProduct";
 import MyCart from "../pages/public/MyCart";
 import ConfirmOrder from "../pages/public/ConfirmOrder";
+import LoginPage from "../pages/public/LoginPage";
 
 const routes = [
   { path: "/", component: HomePage },
   { path: "/products/:slug", component: ViewProduct },
   { path: "/mycart", component: MyCart },
   { path: "/paymentsuccessful/:cartId", component: ConfirmOrder },
+  { path: "/login", component: LoginPage },
   { path: "*", component: NotFound },
 ];
 
