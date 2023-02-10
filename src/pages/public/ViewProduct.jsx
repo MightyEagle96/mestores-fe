@@ -24,8 +24,7 @@ export default function ViewProduct() {
     const { data } = await httpService.get(
       `mestore/viewProducts?category=${slug}`
     );
-
-    setProductsList(data);
+    if (data) setProductsList(data);
 
     setLoading(false);
   };

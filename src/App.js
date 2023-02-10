@@ -13,7 +13,7 @@ import Footer from "./components/Footer";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 function App() {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState({ products: [] });
   const [user, setUser] = useState(null);
   return (
     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT}>

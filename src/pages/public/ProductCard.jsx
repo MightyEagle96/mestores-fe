@@ -12,7 +12,7 @@ import { Badge } from "react-bootstrap";
 
 export default function ProductCard(c) {
   const { cart, setCart } = useContext(CartContext);
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const [loading, setLoading] = useState(false);
 
@@ -57,43 +57,32 @@ export default function ProductCard(c) {
 
         if (res2) {
           setLoading(false);
-          setCart(res2.data.products);
+          setCart(res2.data);
           handleClick();
         }
       }
 
       setLoading(false);
     } else {
-      //what if I'm logged in and don't have a cart
       setLoading(true);
-      if (loggedInUser) {
-        const res = await httpService.post("mestore/newcart", {
-          account: loggedInUser._id,
-          product: c._id,
-        });
+      //what if I'm logged in and don't have a cart
+      const { data } = await httpService.post("mestore/newcart", {
+        account: user._id,
+        product: c._id,
+        cart: cart._id,
+      });
 
-        if (res) {
-          // setLoading(false);
-          // setCart(res2.data.products);
-          // handleClick();
-        }
-      }
+      console.log(data);
+      if (data) setCart(data);
 
-      // const res = await httpService.patch(
-      //   `mestore/addtocart/${loggedInUser._id}`,
-      //   { product: c._id }
-      // );
-      // if (res && res.data) {
-      //   handleClick();
-      //   setCart(res.data.products);
-      // }
-      // setLoading(false);
+      handleClick();
+      setLoading(false);
     }
   };
 
   const hasbeenAdded = (id) => {
-    const exist = cart.find((c) => c.product === id);
-
+    const exist = cart.products.find((c) => c.product === id);
+    console.log(exist ? true : false);
     return exist ? true : false;
   };
   return (

@@ -31,17 +31,19 @@ export default function MyCart() {
 
   const getCart = async () => {
     setLoading(false);
-    const res = await httpService(`mestore/detailedcart/${loggedInUser._id}`);
+    const { data } = await httpService(
+      `mestore/detailedcart/${loggedInUser._id}`
+    );
 
-    if (res && res.data) {
-      setCartId(res.data._id);
-      getCartDescription(res.data._id);
-      setCart(res.data.products);
-      res.data.products.forEach((c) => {
+    if (data) {
+      setCartId(data._id);
+      getCartDescription(data._id);
+      setCart(data);
+      data.products.forEach((c) => {
         c.getCart = getCart;
         c.getCartPrice = getCartPrice;
       });
-      setProducts(res.data.products);
+      setProducts(data.products);
     }
     setLoading(false);
   };
@@ -49,7 +51,7 @@ export default function MyCart() {
   const getCartDescription = async (cartId) => {
     const { data } = await httpService(`mestore/cartdescription/${cartId}`);
 
-    setDescription(data);
+    if (data) setDescription(data);
   };
 
   useEffect(() => {

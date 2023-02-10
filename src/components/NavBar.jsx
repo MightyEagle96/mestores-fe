@@ -15,11 +15,9 @@ function MyNavbar() {
 
   const viewCart = async () => {
     if (loggedInUser) {
-      const res = await httpService(`mestore/mycart/${loggedInUser._id}`);
+      const { data } = await httpService(`mestore/mycart/${loggedInUser._id}`);
 
-      if (res && res.data) {
-        setCart(res.data.products);
-      }
+      if (data) setCart(data);
     }
   };
 
@@ -42,8 +40,8 @@ function MyNavbar() {
             <Nav.Link href="#link">Link</Nav.Link>
           </Nav>
           <Nav className="ms-auto">
-            <Nav.Link href="/mycart" disabled={user ? false : true}>
-              <Badge badgeContent={cart.length} color="error">
+            <Nav.Link href="/mycart" disabled={user && cart ? false : true}>
+              <Badge badgeContent={cart.products.length} color="error">
                 <ShoppingCart />
               </Badge>
             </Nav.Link>
