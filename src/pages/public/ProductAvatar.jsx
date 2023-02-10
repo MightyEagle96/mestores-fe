@@ -6,8 +6,8 @@ export default function ProductAvatar() {
   return (
     <div>
       <Stack direction={{ lg: "row" }} spacing={2}>
-        {productAvatars.map((c) => (
-          <div className="col-md-3">
+        {productAvatars.map((c, i) => (
+          <div className="col-md-3" key={i}>
             <ImageListItem>
               <img src={c.image} alt="" />
               <ImageListItemBar title={c.name} />

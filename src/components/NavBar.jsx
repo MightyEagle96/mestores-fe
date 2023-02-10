@@ -49,9 +49,7 @@ function MyNavbar() {
             </Nav.Link>
             {user ? (
               <NavDropdown title={user.firstName} id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">
-                  My Orders
-                </NavDropdown.Item>
+                <NavDropdown.Item href="/myorders">My Orders</NavDropdown.Item>
                 {/* <NavDropdown.Item href="#action/3.1">
                   <Avatar src={user.picture} />
                 </NavDropdown.Item> */}
@@ -59,7 +57,7 @@ function MyNavbar() {
                   onClick={() => {
                     googleLogout();
                     localStorage.removeItem(process.env.REACT_APP_PROJECT_USER);
-                    window.location.reload();
+                    window.location.assign("/login");
                   }}
                 >
                   Logout

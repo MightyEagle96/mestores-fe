@@ -64,16 +64,30 @@ export default function ProductCard(c) {
 
       setLoading(false);
     } else {
+      //what if I'm logged in and don't have a cart
       setLoading(true);
-      const res = await httpService.patch(
-        `mestore/addtocart/${loggedInUser._id}`,
-        { product: c._id }
-      );
-      if (res && res.data) {
-        handleClick();
-        setCart(res.data.products);
+      if (loggedInUser) {
+        const res = await httpService.post("mestore/newcart", {
+          account: loggedInUser._id,
+          product: c._id,
+        });
+
+        if (res) {
+          // setLoading(false);
+          // setCart(res2.data.products);
+          // handleClick();
+        }
       }
-      setLoading(false);
+
+      // const res = await httpService.patch(
+      //   `mestore/addtocart/${loggedInUser._id}`,
+      //   { product: c._id }
+      // );
+      // if (res && res.data) {
+      //   handleClick();
+      //   setCart(res.data.products);
+      // }
+      // setLoading(false);
     }
   };
 

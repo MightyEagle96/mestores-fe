@@ -17,8 +17,8 @@ export default function HomePage() {
       <div className="row mb-4">
         <div className="col-lg-2">
           <List>
-            {products.map((c) => (
-              <ListItem disablePadding>
+            {products.map((c, i) => (
+              <ListItem key={i} disablePadding>
                 <ListItemButton
                   onClick={() => window.location.assign(`/products/${c.slug}`)}
                 >

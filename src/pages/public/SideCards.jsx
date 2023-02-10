@@ -22,8 +22,8 @@ const images = [
 export default function SideCards() {
   return (
     <div>
-      {images.map((c) => (
-        <Card className="mb-4">
+      {images.map((c, i) => (
+        <Card className="mb-4" key={i}>
           <CardActionArea>
             <CardMedia component="img" height="165" image={c.image} alt="img" />
 
